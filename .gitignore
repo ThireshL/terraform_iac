@@ -4,18 +4,10 @@
 *.tfstate.backup
 *.tfvars
 *.tfvars.json
+**/.terraform.lock.hcl
+**/*.tfstate.lock.info
 
 # Credentials and secrets
 .env
 *.pem
-
-# Ignore terraform files in any directory
-**/.terraform/
-**/*.tfstate
-**/*.tfstate.backup
-**/*.tfstate.lock.info
-**/.terraform.lock.hcl
-
-# Credentials
-**/*.pem
 **/terraform.tfvars
