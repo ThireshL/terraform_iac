@@ -19,6 +19,8 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 * **Modular Design:** Code is split into logical components (`main.tf`, `iam.tf`, `outputs.tf`) to support 500+ resource scaling.
 * **Cross-Cloud Handshake (BigQuery Omni):** Uses OIDC (OpenID Connect) to allow GCP to securely "assume" an AWS IAM role to read S3 data directly.
 * **Modular Multi-Cloud Design:**: Isolated directories for aws/ and gcp/ to prevent provider conflicts and maintain clean state boundaries.
+* **FinOps & Cost Control:** Automated $1.00 Budget Alarms in both AWS (CloudWatch) and GCP (Billing Budgets) to prevent unexpected cloud sprawl.
+* **Automated API Management:** Uses google_project_service to manage GCP service activations, ensuring a "Zero-Touch" setup experience.
 
 ---
 
@@ -40,7 +42,8 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 │   ├── main.tf                   # Provider & Backend Config
 │   ├── iam.tf                    # Roles & Policies (Inc. BigQuery Omni Trust)
 │   ├── variables.tf       
-│   └── outputs.tf         
+│   └── outputs.tf
+│   └── billing.tf                # Billing FinOPS         
 ├── gcp/                          # GCP Infrastructure
 │   ├── main.tf                   # Dataset & Omni Connection
 │   ├── gcp-keys.json             # SECRET: GCP Credentials (Git-ignored)

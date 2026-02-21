@@ -1,20 +1,21 @@
 # Local terraform directories
-**/.terraform.lock.hcl
-.terraform.lock.hcl
 .terraform/
-*.tfstate
-*.tfstate.backup
-*.tfvars
-*.tfvars.json
+**/.terraform/
+.terraform.lock.hcl
 **/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
 **/*.tfstate.lock.info
 
-# Credentials and secrets
+# Global Secrets (Covers all folders)
+*.tfvars
+*.tfvars.json
 .env
 *.pem
+
+# Provider Specific Secrets
+**/gcp-keys.json
 **/terraform.tfvars
 
-# GCP Secrets
-**/gcp-keys.json
 # testing file
 **.test
