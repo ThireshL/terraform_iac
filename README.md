@@ -1,4 +1,4 @@
-![Terraform Validation](https://github.com/<ThireshL>/<terraform_iac>/actions/workflows/terraform-check.yml/badge.svg)
+![Terraform Validation](https://github.com/ThireshL/terraform_iac/actions/workflows/terraform-check.yml/badge.svg)
 
 # Multi-Cloud Data Engineering Infrastructure (IaC)
 
