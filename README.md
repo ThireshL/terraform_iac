@@ -10,7 +10,7 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 
 ### Current Cloud Providers:
 * **AWS (Amazon Web Services):** Primary storage and identity management.
-* **GCP (Google Cloud Platform):**Data warehousing (BigQuery) and cross-cloud query execution.
+* **GCP (Google Cloud Platform):** Data warehousing (BigQuery) and cross-cloud query execution.
 
 ### Key Infrastructure Pillars:
 * **Remote State Management:** State files are stored in S3 with versioning enabled to prevent data loss.
