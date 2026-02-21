@@ -22,9 +22,9 @@ resource "google_project_service" "billing_budgets" {
 
 # 3. Create the GCS Bucket for Terraform State
 resource "google_storage_bucket" "terraform_state" {
-  name          = "thire-tfstate-bucket-2026" 
+  name          = "thire-tfstate-bucket-2026"
   location      = var.location
-  force_destroy = true 
+  force_destroy = true
 
   versioning {
     enabled = true
@@ -35,11 +35,11 @@ resource "google_storage_bucket" "terraform_state" {
 
 # 4. Create a BigQuery Dataset
 resource "google_bigquery_dataset" "raw_data" {
-  dataset_id                  = var.dataset_id
-  friendly_name               = "Raw Data Warehouse"
-  description                 = "This is the landing zone for raw data ingestion"
-  location                    = var.location
-  
+  dataset_id    = var.dataset_id
+  friendly_name = "Raw Data Warehouse"
+  description   = "This is the landing zone for raw data ingestion"
+  location      = var.location
+
   delete_contents_on_destroy = false
 
   labels = {
@@ -50,9 +50,9 @@ resource "google_bigquery_dataset" "raw_data" {
 # 5. Create the AWS Connection for BigQuery Omni
 resource "google_bigquery_connection" "aws_s3_connection" {
   connection_id = "s3-link"
-  location      = "aws-eu-central-1" 
+  location      = "aws-eu-central-1"
   friendly_name = "Link to AWS S3"
-  
+
   aws {
     access_role {
       iam_role_id = "arn:aws:iam::076360446836:role/bigquery-omni-role"
@@ -73,12 +73,12 @@ resource "google_billing_budget" "budget" {
   }
 
   threshold_rules {
-    threshold_percent = 0.5 
+    threshold_percent = 0.5
     spend_basis       = "CURRENT_SPEND"
   }
 
   threshold_rules {
-    threshold_percent = 1.0 
+    threshold_percent = 1.0
     spend_basis       = "CURRENT_SPEND"
   }
 

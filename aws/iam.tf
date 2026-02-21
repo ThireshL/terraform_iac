@@ -10,15 +10,15 @@ resource "aws_iam_policy" "bucket_access" {
     Statement = [
       {
         # Permission to see that the bucket exists and list its contents
-        Action   = ["s3:ListBucket"]
-        Effect   = "Allow"
+        Action = ["s3:ListBucket"]
+        Effect = "Allow"
         # Reference: Points specifically to the ARN of the bucket defined above
         Resource = [aws_s3_bucket.primary_storage.arn]
       },
       {
         # Permission to Read (Get) and Write (Put) files
-        Action   = ["s3:PutObject", "s3:GetObject"]
-        Effect   = "Allow"
+        Action = ["s3:PutObject", "s3:GetObject"]
+        Effect = "Allow"
         # The '/*' suffix is a wildcard allowing access to all objects inside the bucket
         Resource = ["${aws_s3_bucket.primary_storage.arn}/*"]
       }
@@ -28,7 +28,7 @@ resource "aws_iam_policy" "bucket_access" {
 # 5. IAM User: The "Identity" that will act as our Data Engineer
 resource "aws_iam_user" "data_engine_user" {
   name = "iceberg-data-engineer"
-  
+
   tags = {
     Description = "Service account for Iceberg data pipelines"
     Environment = var.env
