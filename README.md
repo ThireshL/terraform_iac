@@ -2,6 +2,7 @@
 ![Terraform Version](https://img.shields.io/badge/Terraform-1.5+-623CE4?logo=terraform)
 ![AWS Provider](https://img.shields.io/badge/AWS_Provider-~%3E5.0-FF9900?logo=amazon-aws)
 ![GCP Provider](https://img.shields.io/badge/GCP_Provider-~%3E5.0-4285F4?logo=google-cloud)
+![Security Scan](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/terraform-check.yml/badge.svg)
 # Multi-Cloud Data Engineering Infrastructure (IaC)
 
 This repository serves as a centralized Infrastructure-as-Code (IaC) hub for a scalable, multi-cloud data ecosystem. The goal is to build a production-ready environment that supports advanced data lakehouse architectures (like Apache Iceberg/Apache Superset) while adhering to industry-standard DevOps practices.

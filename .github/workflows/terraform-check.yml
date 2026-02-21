@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform-checks:
-    name: "Check AWS and GCP Code"
+    name: "Quality and Security Audit"
     runs-on: ubuntu-latest
     
     steps:
@@ -18,14 +18,29 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # 1. Format Check (Ensures your code is clean/standardized)
+      - name: Check Formatting
+        run: terraform fmt -check -recursive
+
+      # 2. AWS Validation
       - name: Check AWS Syntax
         run: |
           cd aws
           terraform init -backend=false
           terraform validate
 
+      # 3. GCP Validation
       - name: Check GCP Syntax
         run: |
-            cd gcp
-            terraform init -backend=false
-            terraform validate
+          cd gcp
+          terraform init -backend=false
+          terraform validate
+
+      # 4. Security Scan (tfsec)
+      # This will scan your whole repo for security vulnerabilities
+      - name: Terraform Security Scan
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          working_directory: .
+          # If you want the build to FAIL on security risks, change this to false
+          soft_fail: true
