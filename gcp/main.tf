@@ -7,8 +7,10 @@ terraform {
 }
 
 # 1. Define the Google Provider using variables
+# 1. Define the Google Provider
 provider "google" {
-  credentials = file("gcp-keys.json")
+  # This tells Terraform: use the file if it exists, otherwise stay null (for CI)
+  credentials = fileexists("gcp-keys.json") ? file("gcp-keys.json") : null
   project     = var.project_id
   region      = var.region
 }
