@@ -8,3 +8,7 @@ variable "env" {
   type    = string
   default = "Prod"
 }
+variable "google_subject_id" {
+  type    = string
+  default = "110051975639556660859"
+}

@@ -61,7 +61,7 @@ resource "aws_iam_role" "bigquery_omni_role" {
         Condition = {
           StringEquals = {
             # This is the specific "Subject" (the Google ID) allowed to enter
-            "accounts.google.com:sub" = "110051975639556660859"
+            "accounts.google.com:sub" = var.google_subject_id # Replace with the actual Google Subject ID of your service account
           }
         }
       }
