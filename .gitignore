@@ -11,3 +11,6 @@
 .env
 *.pem
 **/terraform.tfvars
+
+# GCP Secrets
+gcp-keys.json

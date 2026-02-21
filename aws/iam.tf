@@ -44,3 +44,32 @@ resource "aws_iam_user_policy_attachment" "attach_access" {
 resource "aws_iam_access_key" "data_engine_keys" {
   user = aws_iam_user.data_engine_user.name
 }
+# Create the IAM Role that BigQuery will "assume"
+resource "aws_iam_role" "bigquery_omni_role" {
+  name = "bigquery-omni-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Effect = "Allow"
+        Principal = {
+          # This tells AWS to trust Google's Identity Provider
+          Federated = "accounts.google.com"
+        }
+        Condition = {
+          StringEquals = {
+            # This is the specific "Subject" (the Google ID) allowed to enter
+            "accounts.google.com:sub" = "110051975639556660859"
+          }
+        }
+      }
+    ]
+  })
+}
+# This is the piece that was missing from your code!
+resource "aws_iam_role_policy_attachment" "omni_s3_read" {
+  role       = aws_iam_role.bigquery_omni_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
