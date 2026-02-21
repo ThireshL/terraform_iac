@@ -15,8 +15,14 @@ variable "location" {
   type        = string
   default     = "EU"
 }
+
 variable "dataset_id" {
   description = "The ID of the BigQuery dataset"
   type        = string
   default     = "raw_data"
+}
+
+variable "billing_account_id" {
+  description = "The ID of the billing account to associate this budget with"
+  type        = string
 }
