@@ -1,3 +1,5 @@
+![Terraform Validation](https://github.com/<ThireshL>/<terraform_iac>/actions/workflows/terraform-check.yml/badge.svg)
+
 # Multi-Cloud Data Engineering Infrastructure (IaC)
 
 This repository serves as a centralized Infrastructure-as-Code (IaC) hub for a scalable, multi-cloud data ecosystem. The goal is to build a production-ready environment that supports advanced data lakehouse architectures (like Apache Iceberg/Apache Superset) while adhering to industry-standard DevOps practices.
@@ -26,39 +28,56 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 * **Cloud(GCP):** BigQuery, BigQuery Connection API, GCS
 * **Data Architecture:** Cross-Cloud Data Lakehouse
 * **Version Control:** Git
+---
+## 📂 Project Structure
 
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── terraform-check.yml   # CI/CD Pipeline
+├── aws/                          # AWS Infrastructure
+│   ├── main.tf                   # Provider & Backend Config
+│   ├── iam.tf                    # Roles & Policies (Inc. BigQuery Omni Trust)
+│   ├── variables.tf       
+│   └── outputs.tf         
+├── gcp/                          # GCP Infrastructure
+│   ├── main.tf                   # Dataset & Omni Connection
+│   ├── gcp-keys.json             # SECRET: GCP Credentials (Git-ignored)
+│   └── variables.tf       
+├── .gitignore                    # Filters for .tfstate, .env, and json keys
+└── README.md                     # Project documentation
+```
+---
+## 🤖 CI/CD Automation
+This repository uses **GitHub Actions** to ensure code quality:
+* **Automated Validation:** Every push to `main` triggers a `terraform validate` check for both AWS and GCP modules.
+* **Environment-Agnostic Checks:** The pipeline uses conditional logic (`fileexists`) to validate GCP provider syntax without requiring sensitive service account keys in the cloud environment.
+---
 
 ## 🚀 Getting Started
 **Prerequisites:**
 * Terraform CLI installed.
 * AWS CLI configured with administrative access.
-* GCP Service Account key (gcp-keys.json) located in the /gcp directory (DO NOT COMMIT THIS FILE).
+* GCP Service Account key (gcp-keys.json) located in the /gcp directory (**DO NOT COMMIT THIS FILE**).
 * A GitHub account for source control.
 
 **Deployment** :To deploy the infrastructure, navigate to the provider-specific directory
 
-**AWS**
-```bash
-cd aws
-# Initialize the Backend
-terraform init
-# Validate & Plan
-terraform validate
-terraform plan
-#Apply Changes
-terraform apply
-```
-**GCP**
-```bash
-cd gcp
-# Initialize the Backend
-terraform init
-# Validate & Plan
-terraform validate
-terraform plan
-#Apply Changes
-terraform apply
 
+```bash
+# AWS 
+cd aws
+#GCP
+cd gcp
+# for both cloud the initialization, plan and apply stays the same
+# Initialize the Backend
+terraform init
+# Validate & Plan
+terraform validate
+terraform plan
+#Apply Changes
+terraform apply
 ```
 ---
 
@@ -70,27 +89,10 @@ terraform apply
 ---
 
 ## 📈 Roadmap (Long-Term Trajectory)
-* [x] AWS Landing Zone (S3 & IAM)
-* [x] Remote State & Locking
-* [x] Multi-Cloud Extension (GCP BigQuery)
-* [x] Cross-Cloud Federation (BigQuery Omni Handshake)
-* [ ] Apache Iceberg Table Implementation
-* [ ] CI/CD Pipelines via GitHub Actions
-
----
-
-## 📂 Project Structure
-
-```text
-.
-├── aws/                   # AWS Infrastructure
-│   ├── main.tf            # Provider & Backend Config
-│   ├── iam.tf             # Roles & Policies (Inc. BigQuery Omni Trust)
-│   ├── variables.tf       
-│   └── outputs.tf         
-├── gcp/                   # GCP Infrastructure
-│   ├── main.tf            # Dataset & Omni Connection
-│   ├── gcp-keys.json      # SECRET: GCP Credentials (Git-ignored)
-│   └── variables.tf       
-├── .gitignore             # Filters for .tfstate, .env, and json keys
-└── README.md              # Project documentation
+- [x] AWS Landing Zone (S3 & IAM)
+- [x] Remote State & Locking
+- [x] Multi-Cloud Extension (GCP BigQuery)
+- [x] Cross-Cloud Federation (BigQuery Omni Handshake)
+- [x] CI/CD Pipelines via GitHub Actions
+- [ ] Apache Iceberg Table Implementation & Partitioning
+- [ ] Data Ingestion Pipeline (AWS Glue or Airflow)
