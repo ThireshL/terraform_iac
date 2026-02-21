@@ -1,6 +1,6 @@
 # Multi-Cloud Data Engineering Infrastructure (IaC)
 
-This repository serves as a centralized Infrastructure-as-Code (IaC) hub for a scalable, multi-cloud data ecosystem. The goal is to build a production-ready environment that supports advanced data lakehouse architectures (like Apache Iceberg) while adhering to industry-standard DevOps practices.
+This repository serves as a centralized Infrastructure-as-Code (IaC) hub for a scalable, multi-cloud data ecosystem. The goal is to build a production-ready environment that supports advanced data lakehouse architectures (like Apache Iceberg/Apache Superset) while adhering to industry-standard DevOps practices.
 
 ## 🏗️ Architecture Overview
 
@@ -8,19 +8,23 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 
 ### Current Cloud Providers:
 * **AWS (Amazon Web Services):** Primary storage and identity management.
+* **GCP (Google Cloud Platform):**Data warehousing (BigQuery) and cross-cloud query execution.
 
 ### Key Infrastructure Pillars:
 * **Remote State Management:** State files are stored in S3 with versioning enabled to prevent data loss.
 * **State Locking:** Utilizes DynamoDB to prevent concurrent execution and state corruption.
 * **Least Privilege IAM:** Dedicated service accounts (IAM Users) with scoped-down policies for data operations.
 * **Modular Design:** Code is split into logical components (`main.tf`, `iam.tf`, `outputs.tf`) to support 500+ resource scaling.
+* **Cross-Cloud Handshake (BigQuery Omni):** Uses OIDC (OpenID Connect) to allow GCP to securely "assume" an AWS IAM role to read S3 data directly.
+* **Modular Multi-Cloud Design:**: Isolated directories for aws/ and gcp/ to prevent provider conflicts and maintain clean state boundaries.
 
 ---
 
 ## 🛠️ Tech Stack
 * **IaC:** Terraform
-* **Cloud:** AWS (S3, IAM, DynamoDB)
-* **Data Architecture:** Apache Iceberg (Landing Zone)
+* **Cloud(AWS):** S3, IAM, DynamoDB
+* **Cloud(GCP):** BigQuery, BigQuery Connection API, GCS
+* **Data Architecture:** Cross-Cloud Data Lakehouse
 * **Version Control:** Git
 
 
@@ -28,25 +32,33 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 **Prerequisites:**
 * Terraform CLI installed.
 * AWS CLI configured with administrative access.
+* GCP Service Account key (gcp-keys.json) located in the /gcp directory (DO NOT COMMIT THIS FILE).
 * A GitHub account for source control.
 
-**Deployment** :To deploy the AWS infrastructure, navigate to the provider-specific directory:
+**Deployment** :To deploy the infrastructure, navigate to the provider-specific directory
 
-Enter the AWS Directory:
+**AWS**
 ```bash
 cd aws
-# Initialize the Backend:
+# Initialize the Backend
 terraform init
-
-```
-**Validate & Plan**:
-```bash
+# Validate & Plan
 terraform validate
 terraform plan
-```
-**Apply Changes:**
-```bash
+#Apply Changes
 terraform apply
+```
+**GCP**
+```bash
+cd gcp
+# Initialize the Backend
+terraform init
+# Validate & Plan
+terraform validate
+terraform plan
+#Apply Changes
+terraform apply
+
 ```
 ---
 
@@ -60,8 +72,9 @@ terraform apply
 ## 📈 Roadmap (Long-Term Trajectory)
 * [x] AWS Landing Zone (S3 & IAM)
 * [x] Remote State & Locking
+* [x] Multi-Cloud Extension (GCP BigQuery)
+* [x] Cross-Cloud Federation (BigQuery Omni Handshake)
 * [ ] Apache Iceberg Table Implementation
-* [ ] Multi-Cloud Extension (Azure/GCP)
 * [ ] CI/CD Pipelines via GitHub Actions
 
 ---
@@ -70,10 +83,14 @@ terraform apply
 
 ```text
 .
-├── aws/                   # AWS Specific Infrastructure
-│   ├── main.tf            # Provider & Core Storage (S3)
-│   ├── iam.tf             # Identity & Access (Policies, Users, Keys)
-│   ├── variables.tf       # Configurable parameters
-│   ├── outputs.tf         # Exported resource IDs
-├── .gitignore             # Safety filter to prevent secret leaks
+├── aws/                   # AWS Infrastructure
+│   ├── main.tf            # Provider & Backend Config
+│   ├── iam.tf             # Roles & Policies (Inc. BigQuery Omni Trust)
+│   ├── variables.tf       
+│   └── outputs.tf         
+├── gcp/                   # GCP Infrastructure
+│   ├── main.tf            # Dataset & Omni Connection
+│   ├── gcp-keys.json      # SECRET: GCP Credentials (Git-ignored)
+│   └── variables.tf       
+├── .gitignore             # Filters for .tfstate, .env, and json keys
 └── README.md              # Project documentation
