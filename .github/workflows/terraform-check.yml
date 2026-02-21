@@ -26,6 +26,6 @@ jobs:
 
       - name: Check GCP Syntax
         run: |
-          cd gcp
-          terraform init -backend=false
-          terraform validate
+            cd gcp
+            terraform init -backend=false
+            terraform validate
