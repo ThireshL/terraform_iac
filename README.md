@@ -19,11 +19,11 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 ### Key Infrastructure Pillars:
 * **Hybrid Remote State Management:** State files are anchored in AWS S3 (Primary) and Azure Blob Storage (Add-on) with versioning to ensure global state durability.
 * **Distributed State Locking:** Utilizes AWS DynamoDB as the centralized locking mechanism to prevent concurrent execution conflicts across the multi-cloud environment
-* **Granular Multi-Cloud IAM:** Implements least-privilege access using AWS IAM Users, GCP Service Accounts, and Azure RBAC (e.g., Storage Blob Data Owner) to isolate data plane and management plane operations [cite: 2026-02-28].
-* **Modular Multi-Cloud Design:** Maintains isolated directory structures for aws/, gcp/, and azure/ to prevent provider bloat and ensure clean state boundaries [cite: 2026-02-28].
-* **Cross-Cloud Handshake (BigQuery Omni):** Leverages OIDC (OpenID Connect) to allow GCP to securely assume AWS IAM roles, enabling seamless cross-cloud data analysis without moving data [cite: 2026-02-28].
-* **Uniform Component Architecture:** Standardizes every cloud folder with a consistent layout (main.tf, providers.tf, variables.tf, outputs.tf) to support scaling to 500+ resources [cite: 2026-02-28].
-* **Cloud-Native FinOps:** Automated budget alarms across AWS (CloudWatch) and GCP (Billing) to maintain strict cost control and prevent cloud sprawl [cite: 2026-02-28].
+* **Granular Multi-Cloud IAM:** Implements least-privilege access using AWS IAM Users, GCP Service Accounts, and Azure RBAC (e.g., Storage Blob Data Owner) to isolate data plane and management plane operations.
+* **Modular Multi-Cloud Design:** Maintains isolated directory structures for aws/, gcp/, and azure/ to prevent provider bloat and ensure clean state boundaries.
+* **Cross-Cloud Handshake (BigQuery Omni):** Leverages OIDC (OpenID Connect) to allow GCP to securely assume AWS IAM roles, enabling seamless cross-cloud data analysis without moving data.
+* **Uniform Component Architecture:** Standardizes every cloud folder with a consistent layout (main.tf, providers.tf, variables.tf, outputs.tf) to support scaling to 500+ resources.
+* **Cloud-Native FinOps:** Automated budget alarms across AWS (CloudWatch) and GCP (Billing) to maintain strict cost control and prevent cloud sprawl.
 
 ---
 
