@@ -69,8 +69,8 @@ resource "google_billing_budget" "budget" {
   billing_account = var.billing_account_id
   display_name    = "Project Budget Alert"
   budget_filter {
-    projects = ["projects/${data.google_project.project.number}"]
-    services = ["services/google.googleapis.com"]
+    projects               = ["projects/${data.google_project.project.number}"]
+    services               = ["services/google.googleapis.com"]
     credit_types_treatment = "INCLUDE_ALL_CREDITS"
   }
 
@@ -78,7 +78,7 @@ resource "google_billing_budget" "budget" {
     specified_amount {
       currency_code = "EUR"
       units         = "1"
-      nanos = 0
+      nanos         = 0
     }
   }
   threshold_rules {

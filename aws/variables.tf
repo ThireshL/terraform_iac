@@ -4,8 +4,8 @@ variable "bucket_name" {
 }
 
 variable "env" {
-  type    = string
+  type = string
 }
 variable "google_subject_id" {
-  type    = string
+  type = string
 }
