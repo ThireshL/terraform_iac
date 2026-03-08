@@ -48,11 +48,13 @@ The infrastructure is designed for **Scalability**, **Security**, and **Collabor
 │   ├── iam.tf                    # Roles & Policies (Inc. BigQuery Omni Trust)
 │   ├── variables.tf       
 │   └── outputs.tf
-│   └── billing.tf                # Billing FinOPS         
+│   └── billing.tf                # Billing FinOPS
+│   └──terraform.tfvars          # SECRET/ Credentials (Git-ignored)         
 ├── gcp/                          # GCP Infrastructure
 │   ├── main.tf                   # Dataset & Omni Connection
 │   ├── gcp-keys.json             # SECRET: GCP Credentials (Git-ignored)
 │   └── variables.tf       
+│   └──terraform.tfvars          # SECRET/ Credentials (Git-ignored)        
 ├── azure/                        # Azure Infrastructure 
 │   ├── main.tf                   # Resource Group, Storage & Container
 │   ├── providers.tf              # Backend (Remote State) & Provider config 
@@ -120,4 +122,6 @@ terraform apply
 - [x] Cross-Cloud Federation (BigQuery Omni Handshake)
 - [x] CI/CD Pipelines via GitHub Actions
 - [x] Azure Infrastructure & Remote State
-- [ ] Cloudflare DNS Federation (The Bridge between all three)
+- [ ] Global Edge Orchestration (Cloudflare DNS Federation)
+- [ ] Unified CI/CD Observability (Automated Multi-Cloud Planning)
+- [ ] Modular Refactor (The "Scale" Phase)
