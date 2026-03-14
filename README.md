@@ -122,6 +122,4 @@ terraform apply
 - [x] Cross-Cloud Federation (BigQuery Omni Handshake)
 - [x] CI/CD Pipelines via GitHub Actions
 - [x] Azure Infrastructure & Remote State
-- [ ] Global Edge Orchestration (Cloudflare DNS Federation)
 - [ ] Unified CI/CD Observability (Automated Multi-Cloud Planning)
-- [ ] Modular Refactor (The "Scale" Phase)
